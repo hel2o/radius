@@ -47,6 +47,17 @@ func (a AVP) StringWithPacket(p *Packet) string {
 	return "AVP type: " + a.Type.String() + " " + getAttributeTypeDesc(a.Type).dataType.String(p, a)
 }
 
+func SpecificAvpValueGet(p *Packet, t string) string {
+	var v string
+	for _, avp := range p.AVPs {
+		if avp.Type.String() == t {
+			v = getAttributeTypeDesc(avp.Type).dataType.String(p, avp)
+			break
+		}
+	}
+	return v
+}
+
 type avpDataType interface {
 	Value(p *Packet, a AVP) interface{}
 	String(p *Packet, a AVP) string

@@ -261,6 +261,14 @@ func (p *Packet) GetPassword() (password string) {
 	return avp.Decode(p).(string)
 }
 
+func (p *Packet) GetFramedIPAddress() (ip net.IP) {
+	avp := p.GetAVP(FramedIPAddress)
+	if avp == nil {
+		return nil
+	}
+	return avp.Decode(p).(net.IP)
+}
+
 func (p *Packet) GetNasIpAddress() (ip net.IP) {
 	avp := p.GetAVP(NASIPAddress)
 	if avp == nil {
